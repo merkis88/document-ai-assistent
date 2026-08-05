@@ -39,7 +39,7 @@ class TextChunker:
         text_length = len(text)
 
         while start < text_length:
-            start = self.__skip_whitespace(text=text, position=start)
+            start = self._skip_whitespace(text=text, position=start)
 
             if start > text_length:
                 break
@@ -56,7 +56,7 @@ class TextChunker:
             actual_end = actual_start + len(chunk_text)
 
             if chunk_text:
-                chunks.append(TextChunkDTO(index=len(chunk), text=chunk_text, start_char=actual_start, end_char=actual_end, page_number=page_number))
+                chunks.append(TextChunkDTO(index=len(chunks), text=chunk_text, start_char=actual_start, end_char=actual_end, page_number=page_number))
 
             if end >= text_length:
                 break
@@ -99,13 +99,3 @@ class TextChunker:
             position += 1
 
         return position
-
-
-
-
-
-
-
-
-
-
