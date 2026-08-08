@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 
 
-class ParsedPageDTO(BaseModel):
-    page_number: int | None = None
+class ParsedTextPartDTO(BaseModel):
+    index: int
     text: str
+    page_number: int | None = None
 
 
-class ParsedDocumentDTO(BaseModel):
-    pages: list[ParsedPageDTO]
+class ParsedDocumentStatsDTO(BaseModel):
     total_chars: int
+    total_parts: int
     total_pages: int | None = None

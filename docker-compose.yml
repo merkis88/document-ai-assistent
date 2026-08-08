@@ -1,16 +1,12 @@
 services:
-
   api:
     build: .
     ports:
       - "8000:8000"
-
     volumes:
       - .:/app
-
     depends_on:
       - db
-
 
   db:
     image: pgvector/pgvector:pg16
@@ -49,3 +45,32 @@ services:
       - api
     volumes:
       - .:/app
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: doc_ai_redis
+    restart: unless-stopped
+
+    command:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--maxmemory",
+        "256mb",
+        "--maxmemory-policy",
+        "noeviction"
+      ]
+
+    volumes:
+      - redis_data:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+
+volumes:
+  redis_data:
