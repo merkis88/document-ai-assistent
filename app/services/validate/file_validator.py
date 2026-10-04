@@ -63,7 +63,7 @@ class FileValidator:
         if b"%PDF" not in header:
             raise ValueError("File has .pdf extension but is not a valid PDF")
 
-    @staticmethod
+    @classmethod
     def _validate_docx(cls, file_path: Path) -> None:
         try:
             with ZipFile(file_path) as archive:
@@ -85,14 +85,12 @@ class FileValidator:
 
                     if total_uncompressed_size > cls.MAX_DOCX_UNCOMPRESSED_SIZE:
                         raise ValueError("DOCX archive contains too many uncompressed entries")
-
-                    if entry.file_size == 0:
+                    elif entry.file_size == 0:
                         raise ValueError("File has no data")
+                    elif compression_ratio > cls.MAX_DOCX_UNCOMPRESSED_SIZE:
+                        raise ValueError("Suspicious DOCX compression ratio")
 
                     compression_ratio = entry.file_size / entry.compress_size
-
-                    if compression_ratio > cls.MAX_DOCX_UNCOMPRESSED_SIZE:
-                        raise ValueError("Suspicious DOCX compression ratio")
 
         except BadZipFile as error:
             raise ValueError("File has .docx extension but is not a valid ZIP archive") from error

@@ -1,30 +1,26 @@
-import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from dotenv import load_dotenv
 
-load_dotenv()
+class Settings(BaseSettings):
+    DATABASE_URL: str
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@db:5432/doc_ai")
+    BOT_TOKEN: str | None = None
 
-MCP_SERVER_NAME = os.getenv("doc-ai-assistant")
+    WEBHOOK_BASE_URL: str = ""
+    WEBHOOK_PATH: str = "/telegram/webhook"
+    WEBHOOK_SECRET: str = ""
 
-API_BASE_URL = os.getenv("API_BASE_URL")
+    WEB_SERVER_HOST: str = "127.0.0.1"
+    WEB_SERVER_PORT: int = 8080
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
 
-WEBHOOK_BASE_URL = os.getenv("WEBHOOK_BASE_URL", "")
-WEBHOOK_PATH = os.getenv("WEBHOOK_PATH", "/telegram/webhook")
-WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+    )
 
-WEB_SERVER_HOST = os.getenv("WEB_SERVER_HOST", "127.0.0.1")
-WEB_SERVER_PORT = int(os.getenv("WEB_SERVER_PORT", "8080"))
 
-def validate_bot_config() -> None:
-    if not BOT_TOKEN:
-        raise RuntimeError("BOT_TOKEN is not set")
-
-    if not WEBHOOK_BASE_URL:
-        raise RuntimeError("WEBHOOK_BASE_URL is not set")
-
-    if not WEBHOOK_SECRET:
-        raise RuntimeError("WEBHOOK_SECRET is not set")
+settings = Settings()
