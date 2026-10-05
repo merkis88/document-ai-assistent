@@ -7,6 +7,7 @@ from alembic import context
 from app.db.base import Base
 from app.db.models import Document, DocumentChunk
 import app.db.models
+from app.modules.auth import models as auth_models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
