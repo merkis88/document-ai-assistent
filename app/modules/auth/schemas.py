@@ -13,3 +13,13 @@ class UserResponse(BaseModel):
     id: uuid.UUID
     username: str
     email: EmailStr
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=128)
+
+
+class AccessTokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
