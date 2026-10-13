@@ -1,5 +1,6 @@
 from app.schemas.chunk import TextChunkDTO
 
+
 class TextChunker:
     BREAKPOINTS = ("\n\n", ". ", "! ", "? ", "; ", "\n", " ")
 
