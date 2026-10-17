@@ -1,0 +1,7 @@
+Docling TXT fixture
+
+This is a plain text document.
+It should be converted through convert_string with InputFormat.MD.
+
+- first item
+- second item
