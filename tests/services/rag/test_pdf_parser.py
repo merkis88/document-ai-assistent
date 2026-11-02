@@ -4,8 +4,8 @@ import pytest
 
 from pypdf.errors import PdfReadError
 
-import app.services.rag.parsers.pdf_parser as pdf_parser_module
-from app.services.rag.parsers.pdf_parser import PdfParser
+import app.modules.rag.parsers.pdf_parser as pdf_parser_module
+from app.modules.rag import PdfParser
 
 
 class FakePage:

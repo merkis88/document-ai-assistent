@@ -1,4 +1,4 @@
-from app.schemas.chunk import TextChunkDTO
+from app.schemas.chunk import Chunk
 
 
 class TextChunker:

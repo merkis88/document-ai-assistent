@@ -1,6 +1,6 @@
 import pytest
 
-from app.services.rag.text_chunker import TextChunker
+from app.modules.rag.chunker.text_chunker import TextChunker
 
 
 def test_split_returns_empty_list_for_empty_text() -> None:

@@ -5,7 +5,7 @@ from docling_core.types.doc import DoclingDocument
 
 from app.core.errors.codes import ErrorCode
 from app.core.errors.exceptions import ApplicationError
-from app.services.rag.parsers.docling_parser import DoclingParser
+from app.modules.rag.parsers import DoclingParser
 
 
 FIXTURES_DIR = Path("tests/fixtures/documents")

@@ -8,8 +8,8 @@ from app.schemas.normalized_document import (
     TableBlock,
     TextBlock,
 )
-from app.services.rag.parsers.document_normalizer import DocumentNormalizer
-from app.services.rag.parsers.docling_parser import DoclingParser
+from app.modules.rag.parsers import DocumentNormalizer
+from app.modules.rag.parsers import DoclingParser
 
 FIXTURES_DIR = Path(__file__).parents[2] / "fixtures" / "documents"
 DOCX_PATH = FIXTURES_DIR / "docling_sample.docx"
