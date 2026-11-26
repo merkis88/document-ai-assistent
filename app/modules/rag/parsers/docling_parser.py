@@ -6,7 +6,7 @@ from docling.document_converter import DocumentConverter
 from docling_core.types.doc import DoclingDocument
 
 from app.core.errors.codes import ErrorCode
-from app.core.errors.exceptions import ApplicationError
+from app.core.errors.exceptions import AppError
 
 
 class DoclingParser:
@@ -54,12 +54,12 @@ class DoclingParser:
         path = Path(path_name)
 
         if not path.is_file():
-            raise ApplicationError(code=ErrorCode.DOCUMENT_NOT_FOUND, message=f"Document not found: {path}")
+            raise AppError(code=ErrorCode.DOCUMENT_NOT_FOUND, message=f"Document not found: {path}")
 
         extension = path.suffix.lower()
 
         if extension not in self.SUPPORTED_EXTENSIONS:
-            raise ApplicationError(code=ErrorCode.UNSUPPORTED_DOCUMENT_FORMAT, message="Unsupported document format")
+            raise AppError(code=ErrorCode.UNSUPPORTED_DOCUMENT_FORMAT, message="Unsupported document format")
 
         try:
             if extension in self.TEXT_EXTENSIONS:
@@ -69,10 +69,10 @@ class DoclingParser:
 
             return result.document
 
-        except ApplicationError:
+        except AppError:
             raise
         except Exception as exc:
-            raise ApplicationError(code=ErrorCode.DOCUMENT_PARSE_FAILED, message=f"Failed to parse document: {path.name}") from exc
+            raise AppError(code=ErrorCode.DOCUMENT_PARSE_FAILED, message=f"Failed to parse document: {path.name}") from exc
 
     def _parse_text(self, path: Path) -> DoclingDocument:
         content = path.read_text(encoding="utf-8")

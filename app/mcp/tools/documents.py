@@ -7,7 +7,7 @@ from sqlalchemy import inspect, select
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.db.engine import async_session, engine
-from app.db.models.document import Document
+from app.db.models.chunker.document import Document
 
 
 def serialize_document(document: Document) -> dict[str, Any]:

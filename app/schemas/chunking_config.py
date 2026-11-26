@@ -1,23 +1,20 @@
-from pydantic import BaseModel, Field, model_validator
 from typing import Self
+
+from pydantic import BaseModel, Field, model_validator
 
 
 class ChunkingConfig(BaseModel):
-    min_tokens: int = Field(default=100, gt=0)
-    target_tokens: int = Field(default=400, gt=0)
-    max_tokens: int = Field(default=512, gt=0)
-    overlap_tokens: int = Field(default=64, ge=0)
+    parent_target_tokens: int = Field(default=800, gt=0)
+    parent_max_tokens: int = Field(default=1024, gt=0)
+    child_target_tokens: int = Field(default=128, gt=0)
+    child_max_tokens: int = Field(default=128, gt=0)
 
     @model_validator(mode="after")
     def validate_limits(self) -> Self:
-        if not self.min_tokens <= self.target_tokens <= self.max_tokens:
-            raise ValueError(
-                "Expected min_tokens <= target_tokens <= max_tokens"
-            )
-
-        if self.overlap_tokens >= self.target_tokens:
-            raise ValueError(
-                "overlap_tokens must be less than target_tokens"
-            )
-
+        if self.parent_target_tokens > self.parent_max_tokens:
+            raise ValueError("parent_target_tokens cannot exceed parent_max_tokens")
+        if self.child_target_tokens > self.child_max_tokens:
+            raise ValueError("child_target_tokens cannot exceed child_max_tokens")
+        if self.child_max_tokens > self.parent_max_tokens:
+            raise ValueError("child_max_tokens cannot exceed parent_max_tokens")
         return self

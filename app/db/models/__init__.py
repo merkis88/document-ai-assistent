@@ -1,4 +1,5 @@
-from app.db.models.document import Document
-from app.db.models.document_chunk import DocumentChunk
+from app.db.models.chunker.document import Document
+from app.db.models.chunker.document_chunk import DocumentChunk
+from app.db.models.chunker.child_chunk import DocumentChildChunk
 
-__all__ = ["Document", "DocumentChunk"]
+__all__ = ["Document", "DocumentChunk", "DocumentChildChunk"]

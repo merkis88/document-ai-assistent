@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 import jwt
 from pydantic import ValidationError
 
-from app.core import exceptions
+from app.core.errors import exceptions
 from app.core.config import settings
 from app.schemas.jwt import TokenPayload, TokenType
 

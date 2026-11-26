@@ -10,7 +10,7 @@ from uuid import uuid4
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core import exceptions
+from app.core.errors import exceptions
 from app.core.security.hashing import hash_password, verify_password
 from app.core.security.jwt import (
     create_access_token,

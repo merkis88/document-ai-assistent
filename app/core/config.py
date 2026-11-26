@@ -26,6 +26,8 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    TOKENIZER_ENCODING: str
+
 
 
 settings = Settings()
